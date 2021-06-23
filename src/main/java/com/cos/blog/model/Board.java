@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,11 +44,11 @@ public class Board {
 	@ColumnDefault("0")
 	private int count;//조회수
 	
-	@ManyToOne// Many = Board , User = one
+	@ManyToOne(fetch = FetchType.EAGER)// Many = Board , User = one
 	@JoinColumn(name="userid")
 	private User user;//DB는 오브젝트를 저장 x FK, java는 오브젝트를 저장할수있다.
 	
-	@OneToMany(mappedBy = "board")// mappedBy 연관관계의 주인이 아님 (난 Fk가 아니에요)
+	@OneToMany(mappedBy = "board",fetch = FetchType.LAZY)// mappedBy 연관관계의 주인이 아님 (난 Fk가 아니에요)
 	private List<Reply> reply;
 	
 	@CreationTimestamp
