@@ -10,5 +10,6 @@ public class BoardController {
 	public String index() {
 		///WEB-INF/views/index.jsp
 		return "index";
+
 	}
 }

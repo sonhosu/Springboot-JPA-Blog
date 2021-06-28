@@ -10,7 +10,7 @@ let index = {
 		let data = {
 			username: $("#username").val(),
 			password: $("#password").val(),
-			eamil: $("#email").val()
+			email: $("#email").val()
 		};
 		//console.log(data);			로그인 정보가 잘오는지 확인하는방법  f12 콘솔보기
 
@@ -32,7 +32,7 @@ let index = {
 			
 		
 		}).fail(function(error) {
-			alert(JSON.stringify(error));
+			alert("a"+JSON.stringify(error));
 			
 
 		});
