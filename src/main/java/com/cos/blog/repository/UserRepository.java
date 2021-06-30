@@ -7,5 +7,7 @@ import com.cos.blog.model.User;
 
 //jpa로 따지면 DAO
 public interface UserRepository extends JpaRepository<User, Integer>{
-	
+	// JPA Naming 전략
+	//Select *from user where username = ?1 and password= ?2
+	User findByUsernameAndPassword(String username, String password);
 }
