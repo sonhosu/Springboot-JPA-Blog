@@ -3,6 +3,9 @@ let index = {
 		$("#btn-save").on("click", () => { //function(){} 대신 ()=> 를 사용하는 이유는 this 를 바인딩하기위해서
 			this.save();
 		});
+		$("#btn-login").on("click", () => { //function(){} 대신 ()=> 를 사용하는 이유는 this 를 바인딩하기위해서
+			this.login();
+		});
 	},
 
 	save: function() {
@@ -21,19 +24,19 @@ let index = {
 		$.ajax({
 			type: "POST",
 			url: "/blog/api/user",
-			data:JSON.stringify(data), //http body 데이터
-			contentType:"application/json; charset=utf-8", //body데이터가 어떤 타입인지
-			dataType:"json"//		
-		
+			data: JSON.stringify(data), //http body 데이터
+			contentType: "application/json; charset=utf-8", //body데이터가 어떤 타입인지
+			dataType: "json"//		
+
 		}).done(function(resp) {
 			alert("회원가입이 완료되었습니다.");
 			console.log(resp);
-			location.href="/blog";
-			
-		
+			location.href = "/blog";
+
+
 		}).fail(function(error) {
-			alert("a"+JSON.stringify(error));
-			
+			alert("a" + JSON.stringify(error));
+
 
 		});
 
@@ -46,7 +49,7 @@ let index = {
 		let data = {
 			username: $("#username").val(),
 			password: $("#password").val()
-			
+
 		};
 		//console.log(data);			로그인 정보가 잘오는지 확인하는방법  f12 콘솔보기
 
@@ -57,19 +60,19 @@ let index = {
 		$.ajax({
 			type: "POST",
 			url: "/blog/api/user/login",
-			data:JSON.stringify(data), //http body 데이터
-			contentType:"application/json; charset=utf-8", //body데이터가 어떤 타입인지
-			dataType:"json"//		
-		
+			data: JSON.stringify(data), //http body 데이터
+			contentType: "application/json; charset=utf-8", //body데이터가 어떤 타입인지
+			dataType: "json"//		
+
 		}).done(function(resp) {
 			alert("로그인이 완료되었습니다.");
 			console.log(resp);
-			location.href="/blog";
-			
-		
+			location.href = "/blog";
+
+
 		}).fail(function(error) {
-			alert("a"+JSON.stringify(error));
-			
+			alert("a" + JSON.stringify(error));
+
 
 		});
 
