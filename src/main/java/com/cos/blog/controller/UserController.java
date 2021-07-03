@@ -5,14 +5,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class UserController {
+	
+	//인증이 안된 사용자들이 출입할수있는 경료 /auth/~~~ 허용
+	// 그냥 주소가 /이면 index.jsp허용
+	//static 이하에있는 /js/** ,/css/** ,/image/**
 
-	@GetMapping("/joinForm")
+	@GetMapping("/auth/joinForm")
 	public String joinForm() {
 		
 		return "user/joinForm";
 	}
 	
-	@GetMapping("/loginForm")
+	@GetMapping("/auth/loginForm")
 	public String loginForm() {
 		
 		return "user/loginForm";
