@@ -41,7 +41,7 @@ public class Board {
 	@Column(nullable = false, length = 200)
 	private String content;//섬머노트 라이브러리<html>태그가 섞여서 디자인이됨.
 	
-	@ColumnDefault("0")
+	
 	private int count;//조회수
 	
 	@ManyToOne(fetch = FetchType.EAGER)// Many = Board , User = one
