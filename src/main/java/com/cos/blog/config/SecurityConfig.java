@@ -1,23 +1,40 @@
 package com.cos.blog.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.cos.blog.config.auth.PrincipalDetail;
+import com.cos.blog.config.auth.PrincipalDetailService;
+
 @Configuration // 빈등록: 스프링 컨테이너에서 객체를 관리할수있게 하는것
 @EnableWebSecurity // 시큐리티필터 추가 = 스프링 시큐리티가 활성화 되어있는데 어떤 설정을 해당파일에서 하겠다 .
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 특정 주소로 접근을 하면 권한 및 인증을 미리체크
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	@Bean
+	@Autowired
+	private PrincipalDetailService  principalDetailService;
+	
+	@Bean // Ioc가 됨
 	public BCryptPasswordEncoder encodePWD() {
 		return new BCryptPasswordEncoder();
 	}
-
+	
+	//시큐리티가 대신 로그인해주는데 password를 가로채기하는데
+	//해당 password가 뭘로 해쉬가 되어 회원가입이되었는지 알아야
+	//같은 해쉬로 암화화해서 DB에있는 해쉬랑 비교가능
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(principalDetailService).passwordEncoder(encodePWD());
+		
+	}
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -29,7 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.authenticated()
 		    .and()
 		    	.formLogin()
-		    	.loginPage("/auth/loginForm");
+		    	.loginPage("/auth/loginForm")
+		    	.loginProcessingUrl("/auth/loginProc")
+		    	.defaultSuccessUrl("/");//스프링 시큐리티가 해당주소로 요청오는 로그인을 가로채서 대신 로그인
 		    
 		  
 	}
