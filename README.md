@@ -1,4 +1,7 @@
 # Springboot-JPA-Blog
+## 실행 url
+http://son.lolcalii.com:8000/
+
 ## 개발환경
 1. STS
 2. java1.8
